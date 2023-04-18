@@ -1,37 +1,19 @@
-function threeSum(arr, target) {
-      arr.sort((a, b) => a - b);
-      let closestSum = Infinity;
+function threeSum() {
+    const S = document.getElementById("inputArray").value.split(",").map(Number);
+    const target = Number(document.getElementById("target").value);
 
-      for (let i = 0; i < arr.length - 2; i++) {
-        let left = i + 1;
-        let right = arr.length - 1;
+    let closestSum = Infinity;
 
-        while (left < right) {
-          const sum = arr[i] + arr[left] + arr[right];
-
-          if (sum === target) {
-            return sum;
-          }
-
-          if (Math.abs(sum - target) < Math.abs(closestSum - target)) {
-            closestSum = sum;
-          }
-
-          if (sum < target) {
-            left++;
-          } else {
-            right--;
-          }
+    for (let i = 0; i < S.length - 2; i++) {
+        for (let j = i + 1; j < S.length - 1; j++) {
+            for (let k = j + 1; k < S.length; k++) {
+                const sum = S[i] + S[j] + S[k];
+                if (Math.abs(sum - target) < Math.abs(closestSum - target)) {
+                    closestSum = sum;
+                }
+            }
         }
-      }
-
-      return closestSum;
     }
 
-    function findSum() {
-      const arr = document.getElementById("arr").value.split(" ").map(Number);
-      const target = Number(document.getElementById("target").value);
-      const result = threeSum(arr, target);
-
-      document.getElementById("result").innerHTML = `Closest Sum: ${result}`;
-    }
+    document.getElementById("result").innerHTML = `The sum closest to ${target} is ${closestSum}.`;
+}
