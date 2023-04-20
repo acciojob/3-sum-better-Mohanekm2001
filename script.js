@@ -1,32 +1,45 @@
-function threeSumClosest(nums, target) {
-  nums.sort((a, b) => a - b);
-  let closestSum = nums[0] + nums[1] + nums[2];
-  for (let i = 0; i < nums.length - 2; i++) {
-    let left = i + 1, right = nums.length - 1;
-    while (left < right) {
-      let sum = nums[i] + nums[left] + nums[right];
-      if (Math.abs(sum - target) < Math.abs(closestSum - target)) {
-        closestSum = sum;
-      }
-      if (sum < target) {
-        left++;
-      } else if (sum > target) {
-        right--;
-      } else {
-        return closestSum;
-        // If sum is equal to target, no need to continue
-      }
-    }
-  }
-  return closestSum;
+// function threeSum(arr, target) {
+//  write your code here
+// 	let diff = Number.MAX_VALUE;
+// 	for(let i=0; i<arr.length-2; i++){
+// 		for(let j=i+1; j<arr.length-1; j++){
+// 			for(let k=j+1; k<arr.length; k++){
+// 				let sum = arr[i]+arr[j]+arr[k]
+// 				if(Math.abs(target - sum ) < Math.abs(target - diff)){
+// 				diff = sum;
+// 			}
+// 			}
+// 		}
+// 	}
+// 	return diff;
+  
+// }
+
+
+
+
+function threeSum(arr, target) {
+		arr.sort((a,b) =>{return a-b;});	
+	let res = Number.MAX_VALUE;
+	for(let i =0; i < arr.length-2 ; i++){
+		let j =i+1;
+		let k = arr.length-1;
+		while(j < k){  
+		    let sum = (arr[i]) + (arr[j]) + (arr[k]);
+    		// let curr_diff = Math.abs(Math.abs(sum) - Math.abs(res));
+			if(Math.abs(target - sum ) < Math.abs(target - res)){
+				res = sum;
+			}
+			if(sum < target){
+				j++;
+			}else if(sum > target){
+				k--;
+			}else{
+				return sum;
+			}
+		}
+	}
+	return res;
 }
 
-function handleSubmit() {
-  const numsInput = document.getElementById('nums');
-  const targetInput = document.getElementById('target');
-  const numsArr = numsInput.value.split(',').map(num => parseInt(num));
-  const target = parseInt(targetInput.value);
-  const closestSum = threeSumClosest(numsArr, target);
-  const resultDiv = document.getElementById('result');
-  resultDiv.textContent = `The sum closest to ${target} is ${closestSum}.`;
-}
+module.exports = threeSum;
